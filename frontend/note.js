@@ -20,16 +20,28 @@ function formatDate(isoTime) {
 }
 
 function renderMarkdown(markdownText) {
-  return markdownText
+  const escaped = markdownText
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
+    .replace(/>/g, "&gt;");
+
+  const html = escaped
     .replace(/^### (.*$)/gim, "<h3>$1</h3>")
     .replace(/^## (.*$)/gim, "<h2>$1</h2>")
     .replace(/^# (.*$)/gim, "<h1>$1</h1>")
-    .replace(/^\- (.*$)/gim, "<li>$1</li>")
-    .replace(/\*\*(.*)\*\*/gim, "<strong>$1</strong>")
-    .replace(/\n{2,}/gim, "<br/><br/>");
+    .replace(/\*\*(.*?)\*\*/gim, "<strong>$1</strong>")
+    .replace(/^\- (.*$)/gim, "<li>$1</li>");
+
+  return html
+    .replace(/(<li>.*<\/li>\n?)+/gim, (match) => `<ul>${match}</ul>`)
+    .split(/\n{2,}/)
+    .map((block) => {
+      const trimmed = block.trim();
+      if (!trimmed) return "";
+      if (/^<(h1|h2|h3|ul)/i.test(trimmed)) return trimmed;
+      return `<p>${trimmed.replace(/\n/g, "<br/>")}</p>`;
+    })
+    .join("\n");
 }
 
 async function loadNote() {
