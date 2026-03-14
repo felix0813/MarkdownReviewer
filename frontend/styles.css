@@ -35,7 +35,6 @@ body {
 }
 
 .primary-btn,
-button,
 .inline-btn {
   border: none;
   border-radius: 8px;
@@ -48,7 +47,6 @@ button,
 }
 
 .primary-btn:hover,
-button:hover,
 .inline-btn:hover {
   background: #1d4ed8;
 }
@@ -104,9 +102,16 @@ button:hover,
 .note-item,
 .recent-item {
   border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 0.65rem;
   background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.note-item:hover,
+.recent-item:hover {
+  border-color: #bfdbfe;
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.08);
 }
 
 .category-toggle {
@@ -117,8 +122,18 @@ button:hover,
   background: transparent;
   color: #111827;
   border: none;
-  padding: 0;
+  padding: 0.3rem 0.5rem;
+  border-radius: 8px;
   font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.category-toggle:hover,
+.category-toggle:focus-visible {
+  background: #eff6ff;
+  color: #1d4ed8;
+  outline: none;
 }
 
 .category-children {
@@ -165,6 +180,30 @@ button:hover,
   font-size: 0.85rem;
 }
 
+.secondary-btn {
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+.secondary-btn:hover {
+  background: #e0e7ff;
+}
+
+.danger-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 0.35rem 0.75rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: #fff;
+  background: #dc2626;
+  cursor: pointer;
+}
+
+.danger-btn:hover {
+  background: #b91c1c;
+}
+
 .editor-layout {
   margin: 1rem;
 }
@@ -193,10 +232,58 @@ button:hover,
 
 .preview {
   border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 0.9rem;
-  background: #f9fafb;
+  border-radius: 10px;
+  padding: 1.25rem;
+  background: #fcfdff;
   overflow-wrap: anywhere;
+  line-height: 1.7;
+  color: #1f2937;
+}
+
+.preview :first-child {
+  margin-top: 0;
+}
+
+.preview :last-child {
+  margin-bottom: 0;
+}
+
+.preview h1,
+.preview h2,
+.preview h3 {
+  line-height: 1.35;
+  margin: 1.2rem 0 0.75rem;
+}
+
+.preview h1 {
+  font-size: 1.6rem;
+  border-bottom: 1px solid #dbeafe;
+  padding-bottom: 0.4rem;
+}
+
+.preview h2 {
+  font-size: 1.3rem;
+}
+
+.preview h3 {
+  font-size: 1.1rem;
+}
+
+.preview p {
+  margin: 0.7rem 0;
+}
+
+.preview ul {
+  margin: 0.6rem 0;
+  padding-left: 1.25rem;
+}
+
+.preview li {
+  margin: 0.35rem 0;
+}
+
+.preview strong {
+  color: #111827;
 }
 
 .status-message {
@@ -238,4 +325,5 @@ button:hover,
 
 .note-view-actions {
   margin-top: 1rem;
+  justify-content: flex-start;
 }
