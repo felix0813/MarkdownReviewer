@@ -1,32 +1,3 @@
-const API_BASE = "http://localhost:8080/api";
-
-const fallbackNotes = [
-  {
-    id: "1",
-    title: "产品需求整理",
-    category: "工作/产品",
-    content: "# 产品需求\n\n梳理新版 Markdown Review 功能。",
-    uploadedAt: "2026-03-10T10:15:00Z",
-    fileUrl: "#",
-  },
-  {
-    id: "2",
-    title: "前端学习清单",
-    category: "学习/前端",
-    content: "- 学习 fetch\n- 学习模块化",
-    uploadedAt: "2026-03-13T08:20:00Z",
-    fileUrl: "#",
-  },
-  {
-    id: "3",
-    title: "旅行计划",
-    category: "生活/出行",
-    content: "## 旅行路线\n\n计划周末去爬山。",
-    uploadedAt: "2026-03-12T14:00:00Z",
-    fileUrl: "#",
-  },
-];
-
 const categoryTreeData = [
   {
     name: "工作",
@@ -104,9 +75,9 @@ function buildNoteItem(note) {
 
   noteTitle.textContent = note.title;
   noteCategory.textContent = note.category;
-  noteSummary.textContent = getSummary(note.content);
+  noteSummary.textContent = getSummary(note.content || "");
 
-  viewBtn.href = note.fileUrl || "#";
+  viewBtn.href = `note.html?noteId=${encodeURIComponent(note.id)}`;
   editBtn.href = `editor.html?noteId=${encodeURIComponent(note.id)}`;
 
   return noteItem;
@@ -146,23 +117,14 @@ function filterNotes(query) {
   return notes.filter((note) => {
     return (
       note.title.toLowerCase().includes(keyword) ||
-      note.content.toLowerCase().includes(keyword) ||
-      note.category.toLowerCase().includes(keyword)
+      (note.content || "").toLowerCase().includes(keyword) ||
+      (note.category || "").toLowerCase().includes(keyword)
     );
   });
 }
 
 async function fetchNotes() {
-  try {
-    const response = await fetch(`${API_BASE}/notes`);
-    if (!response.ok) throw new Error("无法获取笔记列表");
-    const payload = await response.json();
-    notes = Array.isArray(payload) ? payload : payload.data ?? fallbackNotes;
-  } catch (error) {
-    console.warn("加载后端数据失败，使用前端示例数据。", error);
-    notes = fallbackNotes;
-  }
-
+  notes = await window.notesService.getNotes();
   renderNotes(notes);
   renderRecent(notes);
 }

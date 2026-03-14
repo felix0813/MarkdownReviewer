@@ -222,3 +222,20 @@ button:hover,
     grid-template-columns: 1fr;
   }
 }
+
+.note-view-layout {
+  margin: 1rem;
+}
+
+.note-view-panel h2 {
+  margin-top: 0;
+}
+
+.note-meta {
+  margin: 0 0 1rem;
+  color: #6b7280;
+}
+
+.note-view-actions {
+  margin-top: 1rem;
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>笔记详情</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>笔记详情</h1>
+        <p>查看、删除或编辑当前笔记</p>
+      </div>
+      <a class="primary-btn ghost" href="index.html">返回首页</a>
+    </header>
+
+    <main class="note-view-layout">
+      <section class="panel note-view-panel">
+        <h2 id="noteTitle">加载中...</h2>
+        <p id="noteMeta" class="note-meta"></p>
+        <div id="noteContent" class="preview"></div>
+
+        <div class="note-actions note-view-actions">
+          <a id="editBtn" class="inline-btn" href="#">编辑当前笔记</a>
+          <button id="deleteBtn" type="button">删除笔记</button>
+        </div>
+
+        <p id="detailStatus" class="status-message"></p>
+      </section>
+    </main>
+
+    <script src="notes-service.js"></script>
+    <script src="note.js"></script>
+  </body>
+</html>
