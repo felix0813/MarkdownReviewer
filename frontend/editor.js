@@ -1,5 +1,3 @@
-const API_BASE = "http://localhost:8080/api";
-
 const titleInput = document.getElementById("titleInput");
 const categoryInput = document.getElementById("categoryInput");
 const markdownInput = document.getElementById("markdownInput");
@@ -37,19 +35,17 @@ function syncPreview() {
 async function loadNote() {
   if (!noteId) return;
 
-  try {
-    const response = await fetch(`${API_BASE}/notes/${encodeURIComponent(noteId)}`);
-    if (!response.ok) throw new Error("获取笔记详情失败");
-
-    const note = await response.json();
-    titleInput.value = note.title ?? "";
-    categoryInput.value = note.category ?? "";
-    markdownInput.value = note.content ?? "";
-    syncPreview();
-    setStatus("笔记已加载");
-  } catch (error) {
-    setStatus(`加载笔记失败：${error.message}`, true);
+  const note = await window.notesService.getNoteById(noteId);
+  if (!note) {
+    setStatus("加载笔记失败：未找到笔记", true);
+    return;
   }
+
+  titleInput.value = note.title ?? "";
+  categoryInput.value = note.category ?? "";
+  markdownInput.value = note.content ?? "";
+  syncPreview();
+  setStatus("笔记已加载");
 }
 
 async function saveNote() {
@@ -59,24 +55,9 @@ async function saveNote() {
     content: markdownInput.value,
   };
 
-  const method = noteId ? "PUT" : "POST";
-  const endpoint = noteId
-    ? `${API_BASE}/notes/${encodeURIComponent(noteId)}`
-    : `${API_BASE}/notes`;
-
   try {
-    const response = await fetch(endpoint, {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-
-    if (!response.ok) throw new Error("保存笔记失败");
-    const result = await response.json();
-
-    setStatus(`保存成功：${result.message ?? "笔记已同步到后端"}`);
+    const result = await window.notesService.saveNote(payload, noteId);
+    setStatus(`保存成功：${result.message ?? "笔记已同步"}`);
   } catch (error) {
     setStatus(`保存失败：${error.message}`, true);
   }
@@ -93,7 +74,7 @@ async function uploadMarkdown() {
   formData.append("file", file);
 
   try {
-    const response = await fetch(`${API_BASE}/notes/upload`, {
+    const response = await fetch(`${window.notesService.API_BASE}/notes/upload`, {
       method: "POST",
       body: formData,
     });
