@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Markdown 笔记面板</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Markdown 笔记面板</h1>
+      <p>展示、编辑、查找你的笔记。</p>
+    </header>
+
+    <main>
+      <aside class="notes-panel">
+        <h2>笔记列表</h2>
+        <input id="searchInput" type="search" placeholder="搜索笔记标题或内容..." />
+        <ul id="notesList"></ul>
+      </aside>
+
+      <section class="editor-panel">
+        <div class="toolbar">
+          <input id="titleInput" type="text" placeholder="笔记标题" />
+          <button id="saveBtn">保存笔记</button>
+        </div>
+
+        <div class="content-grid">
+          <div>
+            <h3>Markdown 编辑区</h3>
+            <textarea id="markdownInput" placeholder="# 在这里开始写作..."></textarea>
+          </div>
+          <div>
+            <h3>预览区</h3>
+            <article id="preview" class="preview"></article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
