@@ -3,41 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Markdown 笔记面板</title>
+    <title>Markdown 笔记中心</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header>
-      <h1>Markdown 笔记面板</h1>
-      <p>展示、编辑、查找你的笔记。</p>
+    <header class="topbar">
+      <div>
+        <h1>Markdown 笔记中心</h1>
+        <p>集中查看、分类管理和查找你的 Markdown 笔记</p>
+      </div>
+      <a class="primary-btn" href="editor.html">新建笔记</a>
     </header>
 
-    <main>
-      <aside class="notes-panel">
-        <h2>笔记列表</h2>
-        <input id="searchInput" type="search" placeholder="搜索笔记标题或内容..." />
-        <ul id="notesList"></ul>
-      </aside>
+    <main class="home-layout">
+      <section class="panel categories-panel">
+        <h2>笔记分类</h2>
+        <ul id="categoryTree" class="category-tree"></ul>
+      </section>
 
-      <section class="editor-panel">
-        <div class="toolbar">
-          <input id="titleInput" type="text" placeholder="笔记标题" />
-          <button id="saveBtn">保存笔记</button>
+      <section class="panel notes-panel">
+        <div class="panel-header">
+          <h2>笔记列表</h2>
+          <input id="searchInput" type="search" placeholder="查找笔记标题、内容、标签..." />
         </div>
+        <ul id="notesList" class="note-list"></ul>
+      </section>
 
-        <div class="content-grid">
-          <div>
-            <h3>Markdown 编辑区</h3>
-            <textarea id="markdownInput" placeholder="# 在这里开始写作..."></textarea>
-          </div>
-          <div>
-            <h3>预览区</h3>
-            <article id="preview" class="preview"></article>
-          </div>
-        </div>
+      <section class="panel recent-panel">
+        <h2>最近上传</h2>
+        <ul id="recentList" class="recent-list"></ul>
       </section>
     </main>
 
-    <script src="app.js"></script>
+    <template id="noteItemTemplate">
+      <li class="note-item">
+        <div class="note-title-row">
+          <strong class="note-title"></strong>
+          <span class="note-category"></span>
+        </div>
+        <p class="note-summary"></p>
+        <div class="note-actions">
+          <a class="inline-btn" data-role="view" target="_blank" rel="noreferrer">查看</a>
+          <a class="inline-btn" data-role="edit">编辑</a>
+        </div>
+      </li>
+    </template>
+
+    <script src="home.js"></script>
   </body>
 </html>

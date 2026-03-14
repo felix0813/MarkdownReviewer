@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>编辑 Markdown 笔记</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>编辑 Markdown 笔记</h1>
+        <p>左侧编辑，右侧实时预览，并支持上传文件</p>
+      </div>
+      <a class="primary-btn ghost" href="index.html">返回主页</a>
+    </header>
+
+    <main class="editor-layout panel">
+      <div class="editor-toolbar">
+        <input id="titleInput" type="text" placeholder="请输入笔记标题" />
+        <select id="categoryInput">
+          <option value="">请选择分类</option>
+          <option value="工作">工作</option>
+          <option value="学习">学习</option>
+          <option value="生活">生活</option>
+          <option value="归档">归档</option>
+        </select>
+        <input id="uploadInput" type="file" accept=".md,.markdown,text/markdown" />
+        <button id="uploadBtn" class="primary-btn" type="button">上传文件</button>
+        <button id="saveBtn" class="primary-btn" type="button">保存笔记</button>
+      </div>
+
+      <div class="editor-grid">
+        <section>
+          <h2>Markdown 编辑区</h2>
+          <textarea id="markdownInput" placeholder="# 在这里开始编写 Markdown..." spellcheck="false"></textarea>
+        </section>
+        <section>
+          <h2>实时预览区</h2>
+          <article id="preview" class="preview"></article>
+        </section>
+      </div>
+      <p id="statusMessage" class="status-message" role="status" aria-live="polite"></p>
+    </main>
+
+    <script src="editor.js"></script>
+  </body>
+</html>

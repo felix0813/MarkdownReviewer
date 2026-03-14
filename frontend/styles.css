@@ -11,43 +11,78 @@
 body {
   margin: 0;
   min-height: 100vh;
+  background: #f3f4f6;
 }
 
-header {
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
   background: #111827;
   color: #f9fafb;
-  padding: 1rem 1.5rem;
 }
 
-header h1 {
+.topbar h1 {
   margin: 0;
   font-size: 1.5rem;
 }
 
-header p {
+.topbar p {
   margin: 0.35rem 0 0;
   color: #d1d5db;
 }
 
-main {
+.primary-btn,
+button,
+.inline-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 0.65rem 0.9rem;
+  background: #2563eb;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+.primary-btn:hover,
+button:hover,
+.inline-btn:hover {
+  background: #1d4ed8;
+}
+
+.primary-btn.ghost {
+  background: #374151;
+}
+
+.panel {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.home-layout {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 280px 1fr 320px;
   gap: 1rem;
   padding: 1rem;
 }
 
-.notes-panel,
-.editor-panel {
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+.panel-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 #searchInput,
 #titleInput,
-#markdownInput,
-button {
+#categoryInput,
+#uploadInput,
+#markdownInput {
   width: 100%;
   border: 1px solid #d1d5db;
   border-radius: 8px;
@@ -55,81 +90,135 @@ button {
   font: inherit;
 }
 
-#searchInput,
-#titleInput {
-  margin-bottom: 0.75rem;
-}
-
-#notesList {
+.category-tree,
+.note-list,
+.recent-list {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
+  gap: 0.55rem;
+}
+
+.category-node,
+.note-item,
+.recent-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0.65rem;
+  background: #fff;
+}
+
+.category-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  color: #111827;
+  border: none;
+  padding: 0;
+  font-weight: 600;
+}
+
+.category-children {
+  margin-top: 0.45rem;
+  padding-left: 0.9rem;
+  border-left: 2px solid #dbeafe;
+  display: none;
+}
+
+.category-children.expanded {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.note-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 0.5rem;
 }
 
-#notesList li {
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 0.6rem;
-  cursor: pointer;
-}
-
-#notesList li:hover,
-#notesList li.active {
-  border-color: #2563eb;
+.note-category {
+  font-size: 0.75rem;
+  color: #1d4ed8;
   background: #eff6ff;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
 }
 
-.toolbar {
+.note-summary {
+  color: #4b5563;
+  margin: 0.6rem 0;
+  line-height: 1.4;
+}
+
+.note-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.inline-btn {
+  display: inline-block;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.85rem;
+}
+
+.editor-layout {
+  margin: 1rem;
+}
+
+.editor-toolbar {
   display: grid;
-  grid-template-columns: 1fr 120px;
-  gap: 0.75rem;
+  grid-template-columns: 1.4fr 1fr 1.1fr auto auto;
+  gap: 0.7rem;
   margin-bottom: 1rem;
 }
 
-button {
-  background: #2563eb;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #1d4ed8;
-}
-
-.content-grid {
+.editor-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
+#markdownInput,
+.preview {
+  min-height: 65vh;
+}
+
 #markdownInput {
-  min-height: 360px;
   resize: vertical;
 }
 
 .preview {
-  min-height: 360px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 0.75rem;
+  padding: 0.9rem;
   background: #f9fafb;
+  overflow-wrap: anywhere;
 }
 
-.preview h1,
-.preview h2,
-.preview h3 {
-  margin-top: 0.5rem;
+.status-message {
+  margin: 0.8rem 0 0;
+  min-height: 1.2em;
+  color: #065f46;
 }
 
-@media (max-width: 960px) {
-  main {
+.error {
+  color: #b91c1c;
+}
+
+@media (max-width: 1200px) {
+  .home-layout {
     grid-template-columns: 1fr;
   }
+}
 
-  .content-grid {
+@media (max-width: 1024px) {
+  .editor-toolbar,
+  .editor-grid,
+  .panel-header {
     grid-template-columns: 1fr;
   }
 }
